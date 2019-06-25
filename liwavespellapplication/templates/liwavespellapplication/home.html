@@ -1,0 +1,6 @@
+{% extends "liwavespellapplication/base.html" %}
+{% block content %}
+    {% for tweet in tweets %}
+        <h2>{{tweet.username}}</h2>
+    {% endfor %}
+{% endblock content %}
