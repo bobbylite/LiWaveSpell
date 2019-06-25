@@ -1,6 +1,6 @@
 {% extends "liwavespellapplication/base.html" %}
 {% block content %}
-    {% for tweet in tweets %}
-        <h2>{{tweet.username}}</h2>
+    {% for stat in lb_stats %}
+        <h2>{{stat.timestamp}}</h2>
     {% endfor %}
 {% endblock content %}

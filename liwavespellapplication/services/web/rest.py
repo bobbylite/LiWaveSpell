@@ -8,7 +8,7 @@ class WebRequest:
     
     def post(self, data_object):
         try:
-            response = requests.post(self.__url, data_object)
+            response = requests.post(self._url, data_object)
             null_or_empty = None == response
             return {error: 'could not post'} if null_or_empty else response
         except:
@@ -16,7 +16,7 @@ class WebRequest:
 
     def get(self):
         try:
-            response = requests.get(self.__url)
+            response = requests.get(self._url)
             null_or_empty = None == response
             return {error: 'could not get'} if null_or_empty else response
         except:
