@@ -4,7 +4,7 @@ from enum import Enum
 class WebRequest:
 
     def __init__(self, url):
-        self.__url = url
+        self._url = url
     
     def post(self, data_object):
         try:

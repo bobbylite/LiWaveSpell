@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from liwavespellapplication.services.web.magicseaweed import MSW_WebRequest
 
 tweets = [
     {
@@ -20,6 +21,9 @@ def home(requet):
     context = {
         'tweets': tweets
     }
+
+    msw = MSW_WebRequest("http://magicseaweed.com/api/{}/forecast/?spot_id=383")
+    msw.Initialize()
     return render(requet, 'liwavespellapplication/home.html', context)
 
 
