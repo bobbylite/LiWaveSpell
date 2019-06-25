@@ -12,3 +12,8 @@ class MSW_WebRequest(WebRequest):
         urlWithKey = self._url.format(self.__apiKey)
         self._url = urlWithKey
     
+    def Clean_datetime(self, json):
+        try:
+            pass
+        except:
+            return {'error': 'could not cleanup datetimes.'}
