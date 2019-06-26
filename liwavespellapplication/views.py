@@ -6,23 +6,55 @@ from liwavespellapplication.services.web.magicseaweed import MSW_WebRequest
 
 from .models import Spot
 
-class HomeView(ListView):
+class HomeViewDark(ListView):
     model = Spot
+    template_name = 'liwavespellapplication/home.html'
+    context_object_name = 'spots'
+    paginate_by = 1
+
+    def get_context_data(self, **kwargs):
+        context = super(HomeViewDark, self).get_context_data(**kwargs)
+        context.update({'theme': {
+            'navbg': 'dark',
+            'navtext': 'light',
+            'bodybg': 'secondary',
+            'cardbg': 'dark',
+            'cardtext': 'light',
+        }})
+        return context
+
+class HomeViewLight(ListView):
+    model = Spot
+    template_name = 'liwavespellapplication/home.html'
+    context_object_name = 'spots'
+    paginate_by = 1
+
+    def get_context_data(self, **kwargs):
+        context = super(HomeViewLight, self).get_context_data(**kwargs)
+        context.update({'theme': {
+            'navbg': 'primary',
+            'navtext': 'dark',
+            'bodybg': 'light',
+            'cardbg': 'light',
+            'cardtext': 'dark',
+        }})
+        return context
+
+
+class DetailView(DetailView):
+
     template_name = 'liwavespellapplication/home.html'
     context_object_name = 'data'
     paginate_by = 1
 
-    def __init__(self):
-        super(HomeView, self)
-        self.__data = self.get_msw_context_data()
-
-    #def get_context_data(self, **kwargs):
-        #context = super(HomeView, self).get_context_data(**kwargs)
-        #context.update({'data': self.spot_selections()})
-        #return context
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        context.update({'data': self.spot_selections()})
+        return context
 
     def get_msw_context_data(self):
         try: 
+
             msw_longbeach_request = MSW_WebRequest("http://magicseaweed.com/api/{}/forecast/?spot_id=383")
             msw_robertmoses_request = MSW_WebRequest("http://magicseaweed.com/api/{}/forecast/?spot_id=381")
 
@@ -35,40 +67,19 @@ class HomeView(ListView):
             longbeach_json_cleaned = MSW_WebRequest.Clean_Datetime(longbeach_json)
             robertmoses_json_cleaned = MSW_WebRequest.Clean_Datetime(robertmoses_json)
 
-            spot_selections_objects = self.spot_selections()
-            print(spot_selections_objects)
-
-            return {
+            context = {
                 'lb_stats' : longbeach_json_cleaned,
-                'rm_stats' : robertmoses_json_cleaned,
-                'spots' : spot_selections_objects
+                'rm_stats' : robertmoses_json_cleaned
             }
+
+            null_or_empty = None == context
+
+            return {'get_msw_context_data()': 'NullOrEmpty'} if null_or_empty else context
+
         except: 
             context = {'get_msw_context_data()': sys.exc_info()[0]}
             return context
-    
-    def spot_selections(self):
-        try:
-            longbeachSpot = {
-                'image': 'https://cdn.traveltripper.io/site-assets/192_434_2522/media/2017-04-03-150546/best-views-long-beach-new-york.jpg',
-                'name': 'Long Beach',
-                'description': 'Long Beach description here...'
-            }
-            robertmosesSpot = {
-                'image': 'https://i.ytimg.com/vi/R1BUE9V5i1w/maxresdefault.jpg',
-                'name': 'Robert Moses State Park',
-                'description': 'Robert Moses description here...'
-            }
 
-            return [
-                longbeachSpot,
-                robertmosesSpot,
-                longbeachSpot,
-                robertmosesSpot
-            ]
-        except:
-            context = {'spot_selections()': sys.exc_info()[0]}
-            return context
 
 
 
