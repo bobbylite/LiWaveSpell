@@ -1,7 +1,7 @@
 from django.urls import path
-from liwavespellapplication.views import HomeViewDark, HomeViewLight
+from liwavespellapplication.views import HomeView
 
 urlpatterns = [
-    path('/dark/', HomeViewDark.as_view(), name='liwavespell-home-dark'),
-    path('/light/', HomeViewLight.as_view(), name='liwavespell-home-light'),
+    path('/theme/', HomeView.as_view(), name='liwavespell-home'),
+    path('/theme/<str:theme>', HomeView.as_view(), name='liwavespell-home-theme'),
 ]

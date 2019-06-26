@@ -30,8 +30,8 @@
             Theme
             </a>
             <div class="dropdown-menu bg-secondary" aria-labelledby="navbarDropdown">
-            {% url 'liwavespell-home-light' as light_url %}
-            {% url 'liwavespell-home-dark' as dark_url %}
+            {% url 'liwavespell-home-theme' theme='light' as light_url %}
+            {% url 'liwavespell-home-theme' theme='dark' as dark_url %}
             <a class="dropdown-item bg-secondary" href="{{light_url}}">Light</a>
             <a class="dropdown-item bg-secondary" href="{{dark_url}}">Dark</a>
             </div>

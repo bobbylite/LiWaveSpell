@@ -6,40 +6,36 @@ from liwavespellapplication.services.web.magicseaweed import MSW_WebRequest
 
 from .models import Spot
 
-class HomeViewDark(ListView):
+class HomeView(ListView):
     model = Spot
     template_name = 'liwavespellapplication/home.html'
     context_object_name = 'spots'
     paginate_by = 1
 
     def get_context_data(self, **kwargs):
-        context = super(HomeViewDark, self).get_context_data(**kwargs)
-        context.update({'theme': {
+        context = super(HomeView, self).get_context_data(**kwargs)
+        params = self.kwargs
+
+        dark_theme = {'theme': {
             'navbg': 'dark',
             'navtext': 'light',
             'bodybg': 'secondary',
             'cardbg': 'dark',
             'cardtext': 'light',
-        }})
-        return context
+        }}
 
-class HomeViewLight(ListView):
-    model = Spot
-    template_name = 'liwavespellapplication/home.html'
-    context_object_name = 'spots'
-    paginate_by = 1
-
-    def get_context_data(self, **kwargs):
-        context = super(HomeViewLight, self).get_context_data(**kwargs)
-        context.update({'theme': {
+        light_theme = {'theme': {
             'navbg': 'primary',
             'navtext': 'dark',
             'bodybg': 'light',
             'cardbg': 'light',
             'cardtext': 'dark',
-        }})
-        return context
+        }}
 
+        theme = dark_theme if params['theme'] == 'dark' else light_theme
+        context.update(theme)
+
+        return context
 
 class DetailView(DetailView):
 
