@@ -29,11 +29,11 @@
             <a class="nav-link dropdown-toggle text-{{theme.navtext}}" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Theme
             </a>
-            <div class="dropdown-menu bg-secondary" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu bg-{{theme.dropdowntext}}" aria-labelledby="navbarDropdown">
             {% url 'liwavespell-home-theme' theme='light' as light_url %}
             {% url 'liwavespell-home-theme' theme='dark' as dark_url %}
-            <a class="dropdown-item bg-secondary" href="{{light_url}}">Light</a>
-            <a class="dropdown-item bg-secondary" href="{{dark_url}}">Dark</a>
+            <a class="dropdown-item bg-{{theme.dropdowntext}}" href="{{light_url}}">Light</a>
+            <a class="dropdown-item bg-{{theme.dropdowntext}}" href="{{dark_url}}">Dark</a>
             </div>
         </li>
         </ul>

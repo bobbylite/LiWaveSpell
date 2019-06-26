@@ -22,6 +22,7 @@ class HomeView(ListView):
             'bodybg': 'secondary',
             'cardbg': 'dark',
             'cardtext': 'light',
+            'dropdowntext': 'secondary'
         }}
 
         light_theme = {'theme': {
@@ -30,6 +31,7 @@ class HomeView(ListView):
             'bodybg': 'light',
             'cardbg': 'light',
             'cardtext': 'dark',
+            'dropdowntext': 'light'
         }}
 
         theme = dark_theme if params['theme'] == 'dark' else light_theme
