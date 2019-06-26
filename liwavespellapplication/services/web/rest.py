@@ -1,5 +1,6 @@
 import requests
 from enum import Enum
+import sys
 
 class WebRequest:
 
@@ -10,17 +11,17 @@ class WebRequest:
         try:
             response = requests.post(self._url, data_object)
             null_or_empty = None == response
-            return {'error': 'could not post'} if null_or_empty else response
+            return {'error': 'empty response'} if null_or_empty else response
         except:
-            return {'error': 'could not post'}
+            return {'request error': sys.exc_info()[0]}
 
     def get(self):
         try:
             response = requests.get(self._url)
             null_or_empty = None == response
-            return {'error': 'could not get'} if null_or_empty else response
+            return {'error': 'empty response'} if null_or_empty else response
         except:
-            return {'error': 'could not get'}
+            return {'request error': sys.exc_info()[0]}
 
     @staticmethod
     def parse(response):
@@ -28,7 +29,7 @@ class WebRequest:
             null_or_empty = None == response
             return {'error': 'cannot parse empty response'} if null_or_empty else response.json()
         except:
-            return {'error': 'could not parse'}
+            return {'error': sys.exc_info()[0]}
 
 
 class parse_TYPE(Enum):
