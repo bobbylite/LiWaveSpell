@@ -1,19 +1,7 @@
 {% extends "liwavespellapplication/base.html" %}
 {% block content %}
     {% for spot in spots %}
-        <br/>
-        <br/>
-        <div class="container card bg-{{theme.cardbg}}" style="width: 18rem; z-index: 0;">
-            <img src="{{spot.image}}" class="card-img-top" style="padding-top: 15px;">
-            <div class="card-body">
-                <h5 class="card-title text-{{theme.cardtext}}">{{spot.name}}</h5>
-                <p class="card-text text-{{theme.cardtext}}">{{spot.description}}</p>
-                <a href="#" class="btn btn-primary">Forecast</a>
-            </div>
-        </div>
-
-        <br/>
-        <br/>
+        {% include "liwavespellapplication/spot-card.html" with spot_context=spot theme_context=theme %}
     {% endfor %}
     <div class="text-center">
         {% if is_paginated %}
