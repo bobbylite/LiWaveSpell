@@ -12,31 +12,39 @@ class HomeView(ListView):
     context_object_name = 'spots'
     paginate_by = 1
 
+    __dark_theme = {'theme': {
+        'skin': 'dark',
+        'navbg': 'dark',
+        'navtext': 'light',
+        'bodybg': 'secondary',
+        'cardbg': 'dark',
+        'cardtext': 'light',
+        'dropdowntext': 'secondary',
+        'footerbg': 'dark'
+    }}
+
+    __light_theme = {'theme': {
+        'skin': 'light',
+        'navbg': 'primary',
+        'navtext': 'dark',
+        'bodybg': 'light',
+        'cardbg': 'light',
+        'cardtext': 'dark',
+        'dropdowntext': 'light',
+        'footerbg': 'primary'
+    }}
+
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         params = self.kwargs
+               
+        if params != {}:
+            if params['theme'] != None:
+                theme = self.__dark_theme if params['theme'] == 'dark' else self.__light_theme
+        else:
+            theme = self.__light_theme
 
-        dark_theme = {'theme': {
-            'navbg': 'dark',
-            'navtext': 'light',
-            'bodybg': 'secondary',
-            'cardbg': 'dark',
-            'cardtext': 'light',
-            'dropdowntext': 'secondary'
-        }}
-
-        light_theme = {'theme': {
-            'navbg': 'primary',
-            'navtext': 'dark',
-            'bodybg': 'light',
-            'cardbg': 'light',
-            'cardtext': 'dark',
-            'dropdowntext': 'light'
-        }}
-
-        theme = dark_theme if params['theme'] == 'dark' else light_theme
         context.update(theme)
-
         return context
 
 class DetailView(DetailView):
