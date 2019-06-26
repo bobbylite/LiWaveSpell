@@ -23,7 +23,7 @@ class WebRequest:
             return {'error': 'could not get'}
 
     @staticmethod
-    def parse_JSON(response):
+    def parse(response):
         try:
             null_or_empty = None == response
             return {'error': 'cannot parse empty response'} if null_or_empty else response.json()

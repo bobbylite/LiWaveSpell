@@ -1,0 +1,6 @@
+{% extends "liwavespellapplication/base.html" %}
+{% block content %}
+    {% for stat in data.lb_stats %}
+        <h2>{{stat.localTimestamp}}</h2>
+    {% endfor %}
+{% endblock content %}

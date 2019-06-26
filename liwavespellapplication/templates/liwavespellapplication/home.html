@@ -1,6 +1,41 @@
 {% extends "liwavespellapplication/base.html" %}
 {% block content %}
-    {% for stat in lb_stats %}
-        <h2>{{stat.timestamp}}</h2>
+    {% for spot in data %}
+        <br/>
+        <br/>
+        <div class="container card" style="width: 18rem; z-index: 0;">
+            <img src="{{spot.image}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{spot.name}}</h5>
+                <p class="card-text">{{spot.description}}</p>
+                <a href="#" class="btn btn-primary">Forecast</a>
+            </div>
+        </div>
+
+        <br/>
+        <br/>
     {% endfor %}
+    <div class="container text-center">
+        {% if is_paginated %}
+
+        {% if page_obj.has_previous %}
+            <a class="btn btn-primary mb-4" href="?page=1">First</a>
+            <a class="btn btn-primary mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <a class="btn btn-primary mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a class="btn btn-outline-primary mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a class="btn btn-primary mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a class="btn btn-primary mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
+
+        {% endif %}
+    </div>
 {% endblock content %}

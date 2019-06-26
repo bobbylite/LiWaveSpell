@@ -1,7 +1,6 @@
 from django.urls import path
-
-from . import views
+from liwavespellapplication.views import HomeView
 
 urlpatterns = [
-    path('', views.home, name='liwavespell-home'),
+    path('', HomeView.as_view(), name='liwavespell-home'),
 ]
